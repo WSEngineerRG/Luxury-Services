@@ -109,7 +109,19 @@
                                     <li><a href="">Jobs Offers</a></li>
                                     <li><a href="">About Us</a></li>
                                     <li><a href="">Contact</a></li>
-                                    <li>-</li>
+                                    {% if not app.user %}
+                                        <li>
+                                            <a target="_self" href="{{ path('security_login') }}">
+                                                <span>Log In</span>
+                                            </a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a target="_self" href="{{path('security_logout')}}">
+                                                <span>Log Out</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>
