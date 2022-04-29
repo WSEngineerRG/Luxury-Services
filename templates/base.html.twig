@@ -91,7 +91,7 @@
 
                 <div id="materialize-menu" class="menuzord">
 
-                    <a class="brand logo-brand" href="{{ path('security_home')}}"></a>
+                    <a class="brand logo-brand" href="{{ path('app_home')}}"></a>
                     <div id="mobile-menu">
                         <div class="nav-wrapper" id="toggle">
                             <span class="top"></span>
@@ -105,19 +105,22 @@
                         <div class="nav-overlay" id="overlay">
                             <nav class="overlay-menu">
                                 <ul>
-                                    <li><a href="">Home</a></li>
+                                    <li><a href="{{ path('app_home')}}">Home</a></li>
                                     <li><a href="">Jobs Offers</a></li>
-                                    <li><a href="">About Us</a></li>
-                                    <li><a href="">Contact</a></li>
+                                    <li><a href="{{ path('app_compagny')}}">About Us</a></li>
+                                    <li><a href="{{ path('app_contact')}}">Contact</a></li>
+                                    {% if app.user %}
+                                        <li><a href="">Profile</a></li>
+                                    {% endif %}
                                     {% if not app.user %}
                                         <li>
-                                            <a target="_self" href="{{ path('security_login') }}">
+                                            <a target="_self" href="{{ path('app_login') }}">
                                                 <span>Log In</span>
                                             </a>
                                         </li>
                                     {% else %}
                                         <li>
-                                            <a target="_self" href="{{path('security_logout')}}">
+                                            <a target="_self" href="{{path('app_logout')}}">
                                                 <span>Log Out</span>
                                             </a>
                                         </li>
@@ -131,7 +134,7 @@
                         </ul>
                         <ul class="menuzord-menu pull-right light" role="navigation">
                             <li class="active dropdown">
-                                <a target="_self" href="">
+                                <a target="_self" href="{{ path('app_home')}}">
                                     <i class=""></i>
                                     <span>Home</span>
                                 </a>
@@ -143,26 +146,26 @@
                                 </a>
                             </li>
                             <li class=" dropdown">
-                                <a target="_self" href=>
+                                <a target="_self" href="{{ path('app_compagny')}}">
                                     <i class=""></i>
                                     <span>About us</span>
                                 </a>
                             </li>
                             <li class=" dropdown">
-                                <a target="_self" href="">
+                                <a target="_self" href="{{ path('app_contact')}}">
                                     <i class=""></i>
                                     <span>Contact</span>
                                 </a>
                             </li>
                             {% if not app.user %}
                                 <li class=" dropdown">
-                                    <a target="_self" href="{{ path('security_login') }}">
+                                    <a target="_self" href="{{ path('app_login') }}">
                                         <span>Log In</span>
                                     </a>
                                 </li>
                             {% else %}
                                 <li class=" dropdown">
-                                    <a target="_self" href="{{path('security_logout')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                    <a target="_self" href="{{path('app_logout')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
                                         <span>Log Out</span>
                                     </a>
                                 </li>
