@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="base">
+
+    <!-- Page -->
+    <div class="page">
+
+        <!-- Page Header-->
+        <section class="page-title page-title-bg fixed-bg overlay dark-5 padding-top-160 padding-bottom-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="white-text">New Job Offer</h2>
+                        <span class="white-text">Welcome on board</span>
+                        <ol class="breadcrumb">
+                            <li><a href="#!">Job</a></li>
+                            <li class="active">Offer / new</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Content-->
+        <section class="section-padding gray-bg log-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
+                        <h3 class="text-extrabold">Crée une Offre !</h3>
+                        {{ form_start(form) }}
+                        {{ form_row(form.reference) }}
+                        {{ form_row(form.title) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.isActive) }}
+                        {{ form_row(form.type) }}
+                        {{ form_row(form.location) }}
+                        {{ form_row(form.salary) }}
+                        {{ form_row(form.closedAt) }}
+                        {{ form_row(form.notes) }}
+                        {{ form_row(form.createdAt) }}
+                        {{ form_row(form.updatedAt) }}
+                        {{ form_row(form.client) }}
+                        {{ form_row(form.category) }}
+                        <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">Ajouter</button>
+                        {{ form_end(form) }}
+                    </div>
+                    </form>
+                </div>
+                    <a class="btn gradient secondary  waves-effect waves-light btn-register" href="{{ path('app_job_offer_index') }}">back to list</a>
+            </div>
+        </section>
+{% endblock %}
