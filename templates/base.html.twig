@@ -120,6 +120,8 @@
                                         </li>
                                     {% else %}
                                         <li>
+                                                <span>{{ app.user.userIdentifier }}</span>
+                                        <li>
                                             <a target="_self" href="{{path('app_logout')}}">
                                                 <span>Log Out</span>
                                             </a>
@@ -164,6 +166,11 @@
                                     </a>
                                 </li>
                             {% else %}
+                                <li class="dropdown">
+                                    <a target="_self" href="{{ path('app_logout') }}">
+                                        <span>{{ app.user.userIdentifier }}</span>
+                                    </a>
+                                </li>
                                 <li class=" dropdown">
                                     <a target="_self" href="{{path('app_logout')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
                                         <span>Log Out</span>

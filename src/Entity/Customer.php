@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientRepository;
+use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+#[ORM\Entity(repositoryClass: CustomerRepository::class)]
+class Customer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

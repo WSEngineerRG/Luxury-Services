@@ -48,7 +48,7 @@ class JobOffer
     #[ORM\Column(type: 'datetime')]
     private $updatedAt;
 
-    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'jobOffers')]
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'jobOffers')]
     #[ORM\JoinColumn(nullable: false)]
     private $client;
 
@@ -201,12 +201,12 @@ class JobOffer
         return $this;
     }
 
-    public function getClient(): ?Client
+    public function getClient(): ?Customer
     {
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
+    public function setClient(?Customer $client): self
     {
         $this->client = $client;
 

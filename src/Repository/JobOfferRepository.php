@@ -4,13 +4,10 @@ namespace App\Repository;
 
 use App\Entity\JobOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<JobOffer>
- *
  * @method JobOffer|null find($id, $lockMode = null, $lockVersion = null)
  * @method JobOffer|null findOneBy(array $criteria, array $orderBy = null)
  * @method JobOffer[]    findAll()
@@ -24,45 +21,35 @@ class JobOfferRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @return JobOffer[] Returns an array of JobOffer objects
      */
-    public function add(JobOffer $entity, bool $flush = true): void
+
+    public function getAllJobOffer()
     {
-        $this->_em->persist($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT 
+                job_offer,
+                clients,
+                jobCategory,
+                jobType,
+                info_admin_client
+            FROM 
+                App\Entity\JobOffer job_offer
+            JOIN
+            job_offer.client clients
+            JOIN
+            clients.infoAdminClient info_admin_client
+            JOIN
+            job_offer.jobCategory jobCategory
+            JOIN
+            job_offer.jobType jobType
+            '
+        );
+        return $query->getResult();
+
     }
 
-    /**
-     * @throws ORMException
-     * @throws OptimisticLockException
-     */
-    public function remove(JobOffer $entity, bool $flush = true): void
-    {
-        $this->_em->remove($entity);
-        if ($flush) {
-            $this->_em->flush();
-        }
-    }
-
-    // /**
-    //  * @return JobOffer[] Returns an array of JobOffer objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('j')
-            ->andWhere('j.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('j.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
     /*
     public function findOneBySomeField($value): ?JobOffer

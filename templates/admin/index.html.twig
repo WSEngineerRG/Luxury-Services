@@ -1,20 +1,141 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+
+    {% block header %}
+        <!-- Navigation -->
+        <header id="header" class="tt-nav transparent-header">
+            <div class="header-sticky semi-transparent">
+                <div class="container">
+
+                    <div id="materialize-menu" class="menuzord">
+
+                        <a class="brand logo-brand" href="{{path('app_home')}}"></a>
+                        <div id="mobile-menu">
+                            <div class="nav-wrapper" id="toggle">
+                                <span class="top"></span>
+                                <span class="middle"></span>
+                                <span class="bottom"></span>
+                            </div>
+                            <div class="icon-wrapper">
+                            <span class="account">
+                                {% if app.user %}
+                                    <a href="">
+                                        <i class="material-icons">&#xE7FD;</i>
+                                    </a>
+                                {% else %}
+                                    <a href="{{path('app_login')}}">
+                                        <i class="material-icons">&#xE7FD;</i>
+                                    </a>
+                                {% endif %}
+                            </span>
+                            </div>
+                            <div class="nav-overlay" id="overlay">
+                                <nav class="overlay-menu">
+                                    <ul>
+                                        <li><a href="{{path('app_home')}}">Home</a></li>
+                                        <li><a href="/templates/jobs/index.html">Jobs Offers</a></li>
+                                        <li><a href="{{path('app_compagny')}}">About Us</a></li>
+                                        <li><a href="{{path('app_compagny')}}">Contact</a></li>
+                                        <li>-</li>
+                                        {% if app.user %}
+                                            <li><a href="">Profile</a></li>
+                                            <li><a href="{{path('app_logout')}}">Logout</a></li>
+                                        {% else %}
+                                            <li><a href="{{path('app_login')}}">Login</a></li>
+                                            <li><a href="{{path('security_registration')}}">Sign In</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="menuzord-menu pull-right light" role="navigation">
+                                {% if app.user %}
+                                    <li class=" dropdown">
+                                        <a target="_self" href=""class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class=" dropdown">
+                                        <a target="_self" href="{{path('app_logout')}}" class="btn bn-lg gradient btn-danger btn-block waves-effect waves-light btn-register">
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class=" dropdown">
+                                        <a target="_self" href="{{path('app_login')}}">
+                                            <span>Login</span>
+                                        </a>
+                                    </li>
+                                    <li class=" dropdown">
+                                        <a target="_self" href="{{path('security_registration')}}" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                            <span>Sign Up</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <ul class="menuzord-menu pull-right light" role="navigation">
+                                <li class="active dropdown">
+                                    <a target="_self" href="{{path('app_home')}}">
+                                        <i class=""></i>
+                                        <span>Home</span>
+                                    </a>
+                                </li>
+                                <li class=" dropdown">
+                                    <a target="_self" href="{{path('app_home')}}">
+                                        <i class=""></i>
+                                        <span>Jobs offers</span>
+                                    </a>
+                                </li>
+                                <li class=" dropdown">
+                                    <a target="_self" href="{{path('app_compagny')}}">
+                                        <i class=""></i>
+                                        <span>About us</span>
+                                    </a>
+                                </li>
+                                <li class=" dropdown">
+                                    <a target="_self" href="{{path('app_contact')}}">
+                                        <i class=""></i>
+                                        <span>Contact</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <nav class="nav nav-pills nav-fill text-center">
+                    <a class="nav-item nav-link active" href="">Candidates </a>/
+                    <a class="nav-item nav-link" href="">Job Offers </a>/
+                    <a class="nav-item nav-link" href="">Clients </a>/
+                    <a class="nav-item nav-link" href="">Job Type </a>/
+                    <a class="nav-item nav-link" href="">Experiences </a>/
+                    <a class="nav-item nav-link" href="">Job Category</a>
+                </nav>
+            </div>
+
+        </header>
+    {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/luxury/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/luxury/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+    <div class="example-wrapper">
+        <h1>ADMIN PAGE {{ controller_name }}! ✅</h1>
+
+        This friendly message is coming from:
+        <ul>
+            <li>Your controller at <code><a href="{{ 'C:/laragon/www/LuxuryService/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
+            <li>Your template at <code><a href="{{ 'C:/laragon/www/LuxuryService/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
+        </ul>
+    </div>
 {% endblock %}

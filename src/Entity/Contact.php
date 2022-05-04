@@ -25,7 +25,7 @@ class Contact
     #[ORM\Column(type: 'string', length: 255)]
     private $job;
 
-    #[ORM\OneToOne(mappedBy: 'contact', targetEntity: Client::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'contact', targetEntity: Customer::class, cascade: ['persist', 'remove'])]
     private $client;
 
     public function getId(): ?int
@@ -81,12 +81,12 @@ class Contact
         return $this;
     }
 
-    public function getClient(): ?Client
+    public function getClient(): ?Customer
     {
         return $this->client;
     }
 
-    public function setClient(Client $client): self
+    public function setClient(Customer $client): self
     {
         // set the owning side of the relation if necessary
         if ($client->getContact() !== $this) {

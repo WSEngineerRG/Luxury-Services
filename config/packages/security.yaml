@@ -19,13 +19,24 @@ security:
             lazy: true
             provider: in_database
 
+            login_throttling:
+                max_attempts: 3
+                interval: '10 minutes'
+
             form_login:
                 login_path: app_login
                 check_path: app_login
                 default_target_path: app_home
+
             logout:
                 path: app_logout
                 target: app_home
+
+#            forgotten_password:
+#                template: 'security/forgotten_password.html.twig'
+#                send_email:
+#                    template: 'security/forgotten_password_email.html.twig'
+#                    from_email: '
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -38,8 +49,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER } # default
 
 when@test:
     security:

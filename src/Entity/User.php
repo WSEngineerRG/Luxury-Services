@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Migrations\Configuration\EntityManager\ManagerRegistryEntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,12 +33,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Length(min : "8", minMessage : "Votre mot de passe doit faire minimum 8 caractères")]
+    #[Assert\NotBlank(message: "Veuillez entrer un mot de passe")]
     private $password;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: JobApplication::class, orphanRemoval: true)]
+    private $jobApplications;
+
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Profile::class, cascade: ['persist', 'remove'])]
+    private $profile;
 
 
     #[Assert\EqualTo(propertyPath: "password", message: "Vous n'avez pas tapé le même mot de passe")]
     public $confirm_password;
 
+    public function __construct()
+    {
+        $this->jobApplications = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,9 +86,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->roles;
     }
 
-    public function setRoles(array $roles): self
+    public function setRoleAsAdmin(): self
     {
-        $this->roles = $roles;
+        $this->roles = ['ROLE_ADMIN'];
+
+        return $this;
+    }
+
+    public function setRoleAsDefault(): self
+    {
+        $this->roles = ['ROLE_USER'];
 
         return $this;
     }
@@ -110,6 +131,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+
+    /**
+     * @return Collection<int, JobApplication>
+     */
+    public function getJobApplications(): Collection
+    {
+        return $this->jobApplications;
+    }
+
+    public function addJobApplication(JobApplication $jobApplication): self
+    {
+        if (!$this->jobApplications->contains($jobApplication)) {
+            $this->jobApplications[] = $jobApplication;
+            $jobApplication->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJobApplication(JobApplication $jobApplication): self
+    {
+        if ($this->jobApplications->removeElement($jobApplication)) {
+            // set the owning side to null (unless already changed)
+            if ($jobApplication->getUser() === $this) {
+                $jobApplication->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
     }
 
 
